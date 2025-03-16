@@ -38,7 +38,7 @@ export const getCharacterById = (id: number): Character | undefined => {
  */
 export const addCharacter = (character: Character): Character => {
     // Se o character que estamos tentando adicionar já existe o retornamos, não precisamos criá-lo se ele já existir
-    if (!characters.has(character.id)) {
+    if (character.id && !characters.has(character.id)) {
         console.error(`Character with id ${character.id} already exists`);
         return character;
     }

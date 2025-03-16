@@ -11,6 +11,11 @@ import config from "../config";
 // Damos um type quando são coisas que uma interface não tem, por exemplo: um type pode utilizar um enum como uma chave
 // Podemos fazer uniões e intersecções de tipos, aliases e isso não podemos fazer com interfaces
 // E a regra é que as interfaces são o mais nativo dentro de JavaScript que um type
+/**
+ * Interface representing an authenticated request
+ * @interface
+ * @extends {IncomingMessage}
+ */
 export interface AuthenticatedRequest extends IncomingMessage {
     // O que vamos a colocar? Um usuário e este usuário vai ter um JwtPayload ou uma string
     user?: JwtPayload | string;
@@ -18,6 +23,12 @@ export interface AuthenticatedRequest extends IncomingMessage {
 
 // Como autenticamos o token?
 // Primeiro é um método assíncrono porque vamos estar utilizando um processo
+/**
+ * Middleware function to authenticate a token
+ * @param {AuthenticatedRequest} req - The incoming request object 
+ * @param {ServerResponse} res - The server response object 
+ * @returns {Promise<boolean>} - A promise that resolves to true if the token is valid, false otherwise
+ */
 export const authenticateToken = async (req: AuthenticatedRequest, res: ServerResponse): Promise<boolean> => {
     // Armazenando o token da requisição dentro da nossa variável
     const authHeader = req.headers["authorization"]
